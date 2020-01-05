@@ -3,6 +3,8 @@
            https://api.github.com/users/<your name>
 */
 
+
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -24,7 +26,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+// const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,3 +55,75 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+
+const cardFromIndex = document.querySelector('.cards');
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
+
+
+axios
+    .get("https://api.github.com/users/kimboyd12")
+    .then( res => {
+       const card = res.data;
+       const newCard = githubCardCreator(res.data);
+       cardFromIndex.appendChild(newCard);
+       })
+
+    .catch(err =>  console.log(err))
+
+
+  followersArray.forEach((user) => {
+  axios.get(`https://api.github.com/users/${user}`)
+  .then(res => {
+    const data = res.data;
+    const newCard = githubCardCreator(data);
+    cardFromIndex.appendChild(newCard)
+  })
+  .catch((err) =>  console.log(err)) 
+})
+
+    function githubCardCreator(obj) {
+      const card = document.createElement('div');
+      const cardImg = document.createElement('img');
+      const cardInfo = document.createElement('div');
+      const name = document.createElement('h3');
+      const username = document.createElement('p');
+      const location = document.createElement('p');
+      const profile = document.createElement('p');
+      const anchor = document.createElement('a');
+      const followers = document.createElement('p');
+      const following = document.createElement('p');
+      const bio = document.createElement('p');
+
+      card.classList.add('card');
+      cardInfo.classList.add('card-info');
+      name.classList.add('name');
+      username.classList.add('username');
+
+      cardImg.src = obj.avatar_url;
+      cardImg.alt = 'github user';
+      name.textContent = obj.name;
+      username.textContent = obj.login;
+      location.textContent = obj.location;
+      profile.textContent = `Profile: `;
+      anchor.href = obj.html_url;
+      anchor.textContent = obj.html_url;
+      followers.textContent = `Followers: ${obj.followers}`;
+      following.textContent = `Following: ${obj.following}`;
+      bio.textContent = `Bio: ${obj.bio}`;
+
+      card.appendChild(cardImg);
+      card.appendChild(cardInfo);
+      cardInfo.appendChild(name);
+      cardInfo.appendChild(username);
+      cardInfo.appendChild(location);
+      cardInfo.appendChild(profile);
+      profile.appendChild(anchor);
+      cardInfo.appendChild(followers);
+      cardInfo.appendChild(following);
+      cardInfo.appendChild(bio);
+    
+      console.log(card);
+    
+      return card;
+    }
