@@ -55,19 +55,11 @@ const followersArray = [];
 */
 
 
-axios.get('https://api.github.com/users/kimboyd12')
-  .then((response) => {
-    console.log(response);
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-
 
 function cardCreator(obj) {
 
   // creating elements
-  const newCard = document.createElement('div');
+  const card = document.createElement('div');
   const cardImg = document.createElement('img');
   const cardInfo = document.createElement('div');
   const name = document.createElement('h3');
@@ -80,10 +72,20 @@ function cardCreator(obj) {
   const bio = document.createElement('p');
 
   // adding classes
-  newCard.classList.add('card');
+  card.classList.add('card');
   cardInfo.classList.add('card-info');
   name.classList.add('name');
-  userName.classList.add('username')
+  username.classList.add('username')
+
+  cardImg.src = obj.avatar_url;
+  name.textContent = obj.name;
+  username.textContent = obj.login;
+  location.textContent = `Location: ${obj.location}`;
+  profile.textContent = 'Profile:';
+  link.href = obj.html_url;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
 
   // appending
   card.appendChild(cardImg);
@@ -96,11 +98,22 @@ function cardCreator(obj) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
-  
-  
-
-  return newCard;
 
 
-
+  return card;
 }
+
+// step 4
+
+const myCard = document.querySelector('.cards');
+
+axios.get('https://api.github.com/users/kimboyd12')
+  .then((response) => {
+    const newCard = cardCreator(response.data);
+    myCard.appendChild(newCard);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
+  
