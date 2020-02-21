@@ -53,3 +53,54 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+
+axios.get('https://api.github.com/users/kimboyd12')
+  .then((response) => {
+    console.log(response);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
+
+function cardCreator(obj) {
+
+  // creating elements
+  const newCard = document.createElement('div');
+  const cardImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const link = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  // adding classes
+  newCard.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username')
+
+  // appending
+  card.appendChild(cardImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(link);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  
+  
+
+  return newCard;
+
+
+
+}
