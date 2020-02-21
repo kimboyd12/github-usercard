@@ -69,6 +69,7 @@ function cardCreator(obj) {
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
+  const githubChart = document.createElement('img');
 
   // adding classes
   card.classList.add('card');
@@ -84,6 +85,7 @@ function cardCreator(obj) {
   followers.textContent = `Followers: ${obj.followers}`;
   following.textContent = `Following: ${obj.following}`;
   bio.textContent = `Bio: ${obj.bio}`;
+  githubChart.src = `http://ghchart.rshah.org/${obj.login}`;
 
   // appending
   card.appendChild(cardImg);
@@ -95,6 +97,7 @@ function cardCreator(obj) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
+  cardInfo.appendChild(githubChart);
 
 
   return card;
