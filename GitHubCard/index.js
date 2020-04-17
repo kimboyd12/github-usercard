@@ -69,13 +69,14 @@ function cardCreator(obj) {
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
-  const githubChart = document.createElement('img');
+
 
   // adding classes
   card.classList.add('card');
   cardInfo.classList.add('card-info');
   name.classList.add('name');
   username.classList.add('username')
+
 
   cardImg.src = obj.avatar_url;
   name.textContent = obj.name;
@@ -85,7 +86,7 @@ function cardCreator(obj) {
   followers.textContent = `Followers: ${obj.followers}`;
   following.textContent = `Following: ${obj.following}`;
   bio.textContent = `Bio: ${obj.bio}`;
-  githubChart.src = `http://ghchart.rshah.org/${obj.login}`;
+
 
   // appending
   card.appendChild(cardImg);
@@ -97,7 +98,21 @@ function cardCreator(obj) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
-  cardInfo.appendChild(githubChart);
+
+  // stretch
+
+  const moreDiv = document.createElement('div');
+  moreDiv.classList.add('more');
+  const moreButton = document.createElement('button');
+  moreButton.classList.add('more-button');
+  moreButton.textContent = "See More Info";
+  card.appendChild(moreDiv);
+  moreDiv.appendChild(moreButton);
+
+  moreButton.addEventListener('click', (e) => {
+    moreDiv.classList.toggle('.more-open')
+  })
+
 
 
   return card;
